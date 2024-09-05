@@ -1,4 +1,3 @@
-
 package com.Cicadellidea.taotiesdelight.Capabilites;
 
 import net.minecraft.core.Direction;
@@ -67,3 +66,4 @@ public class PlayerFoodAttackSpeedBonusProvider implements ICapabilityProvider, 
 
     }
 }
+

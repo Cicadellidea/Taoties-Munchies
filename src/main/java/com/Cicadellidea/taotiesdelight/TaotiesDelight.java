@@ -1,9 +1,8 @@
 package com.Cicadellidea.taotiesdelight;
 
 import com.Cicadellidea.taotiesdelight.Capabilites.*;
-import com.Cicadellidea.taotiesdelight.config.TaotiesDelightConfig;
 import com.Cicadellidea.taotiesdelight.tracker.ArrowTracker;
-import com.Cicadellidea.taotiesdelight.tracker.PlayerHealthyTracker;
+import com.Cicadellidea.taotiesdelight.config.FoodSpeedBonusConfig;
 import com.mojang.logging.LogUtils;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
@@ -24,7 +23,6 @@ import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 
-import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.event.entity.ProjectileImpactEvent;
 import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -51,7 +49,24 @@ public class TaotiesDelight
     // Create a Deferred Register to hold Items which will all be registered under the "examplemod" namespace
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MODID);
     // Create a Deferred Register to hold CreativeModeTabs which will all be registered under the "examplemod" namespace
+    public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
 
+    // Creates a new Block with the id "examplemod:example_block", combining the namespace and path
+    public static final RegistryObject<Block> EXAMPLE_BLOCK = BLOCKS.register("example_block", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.STONE)));
+    // Creates a new BlockItem with the id "examplemod:example_block", combining the namespace and path
+    public static final RegistryObject<Item> EXAMPLE_BLOCK_ITEM = ITEMS.register("example_block", () -> new BlockItem(EXAMPLE_BLOCK.get(), new Item.Properties()));
+
+    // Creates a new food item with the id "examplemod:example_id", nutrition 1 and saturation 2
+    public static final RegistryObject<Item> EXAMPLE_ITEM = ITEMS.register("example_item", () -> new Item(new Item.Properties().food(new FoodProperties.Builder()
+            .alwaysEat().nutrition(1).saturationMod(2f).build())));
+
+    // Creates a creative tab with the id "examplemod:example_tab" for the example item, that is placed after the combat tab
+    public static final RegistryObject<CreativeModeTab> EXAMPLE_TAB = CREATIVE_MODE_TABS.register("example_tab", () -> CreativeModeTab.builder()
+            .withTabsBefore(CreativeModeTabs.COMBAT)
+            .icon(() -> EXAMPLE_ITEM.get().getDefaultInstance())
+            .displayItems((parameters, output) -> {
+                output.accept(EXAMPLE_ITEM.get()); // Add the example item to the tab. For your own tabs, this method is preferred over the event
+            }).build());
 
     public void attachCapability(AttachCapabilitiesEvent<Entity> event)
     {
@@ -66,42 +81,25 @@ public class TaotiesDelight
 
         if(event.getObject() instanceof Player player)
         {
-            if(!player.getCapability(TaotiePlayerFoodListProvider.PLAYER_FOODL_LIST_CAPABILITY).isPresent())
-            {
-                event.addCapability(new ResourceLocation(MODID,"taotiefoodlist"),new TaotiePlayerFoodListProvider());
-            }
             if(!player.getCapability(PlayerFoodSpeedBonusProvider.PLAYER_FOOD_SPEED_BONUS_CAPABILITY).isPresent())
             {
                 event.addCapability(new ResourceLocation(MODID,"foodspeedbonus"),new PlayerFoodSpeedBonusProvider());
             }
+        }
+        if(event.getObject() instanceof Player player)
+        {
             if(!player.getCapability(PlayerFoodDamageBonusProvider.PLAYER_FOOD_DAMAGE_BONUS_CAPABILITY).isPresent())
             {
                 event.addCapability(new ResourceLocation(MODID,"fooddamagebonus"),new PlayerFoodDamageBonusProvider());
             }
+        }
+        if(event.getObject() instanceof Player player)
+        {
             if(!player.getCapability(PlayerFoodAttackSpeedBonusProvider.PLAYER_FOOD_ATTACK_SPEED_BONUS_CAPABILITY).isPresent())
             {
                 event.addCapability(new ResourceLocation(MODID,"foodattackspeedbonus"),new PlayerFoodAttackSpeedBonusProvider());
             }
-            if(!player.getCapability(PlayerFoodResistanceBonusProvider.PLAYER_FOOD_RESISTANCE_BONUS_CAPABILITY).isPresent())
-            {
-                event.addCapability(new ResourceLocation(MODID,"foodresistancebonus"),new PlayerFoodResistanceBonusProvider());
-            }
-            if(!player.getCapability(PlayerFoodHealingBonusProvider.PLAYER_FOOD_HEALING_BONUS_CAPABILITY).isPresent())
-            {
-                event.addCapability(new ResourceLocation(MODID,"foodhealingbonus"),new PlayerFoodHealingBonusProvider());
-            }
-            if(!player.getCapability(PlayerFoodShootSpeedBonusProvider.PLAYER_FOOD_SHOOT_SPEED_BONUS_CAPABILITY).isPresent())
-            {
-                event.addCapability(new ResourceLocation(MODID,"foodshootspeedebonus"),new PlayerFoodShootSpeedBonusProvider());
-            }
-            if(!player.getCapability(PlayerFoodArrowDamageBonusProvider.PLAYER_FOOD_ARROW_DAMAGE_BONUS_CAPABILITY).isPresent())
-            {
-                event.addCapability(new ResourceLocation(MODID,"foodarrowdamagebonus"),new PlayerFoodArrowDamageBonusProvider());
-            }
-
-
         }
-
 
 
 
@@ -118,23 +116,62 @@ public class TaotiesDelight
         // Register the Deferred Register to the mod event bus so items get registered
         ITEMS.register(modEventBus);
         // Register the Deferred Register to the mod event bus so tabs get registered
-
+        CREATIVE_MODE_TABS.register(modEventBus);
 
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.register(new ArrowTracker());
-        MinecraftForge.EVENT_BUS.register(new PlayerHealthyTracker());
-
 
 
         // Register our mod's ForgeConfigSpec so that Forge can create and load the config file for us
 
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, TaotiesDelightConfig.SPEC);
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, FoodSpeedBonusConfig.SPEC);
         MinecraftForge.EVENT_BUS.addGenericListener(Entity.class,this::attachCapability);
 
     }
 
 
+    // Add the example block item to the building blocks tab
+    private void addCreative(BuildCreativeModeTabContentsEvent event)
+    {
+        if (event.getTabKey() == CreativeModeTabs.BUILDING_BLOCKS)
+            event.accept(EXAMPLE_BLOCK_ITEM);
+    }
+
+    // You can use SubscribeEvent and let the Event Bus discover methods to call
+    @SubscribeEvent
+    public void onServerStarting(ServerStartingEvent event)
+    {
+        // Do something when the server starts
+        LOGGER.info("HELLO from server starting");
+    }
+//
+
+    @SubscribeEvent
+    public void onProjectHitEvent(ProjectileImpactEvent event)
+    {
+
+
+        if(event.getEntity() instanceof Arrow arrow)
+        {
+            if(arrow.getOwner() instanceof Player player)
+            {
+                if (!player.level().isClientSide)
+                {
+                    LOGGER.info(String.valueOf(player.getAttribute(Attributes.MOVEMENT_SPEED).getValue()));
+                    LOGGER.info(String.valueOf(player.getAttribute(Attributes.ATTACK_SPEED).getValue()));
+                    LOGGER.info(String.valueOf(player.getAttribute(Attributes.ATTACK_DAMAGE).getValue()));
+
+
+
+
+
+
+                }
+            }
+        }
+
+    }
 
 
 
@@ -143,14 +180,11 @@ public class TaotiesDelight
     public static void registerCapability(RegisterCapabilitiesEvent event)
     {
         event.register(ArrowFoodAcceleratedProvider.class);
-        event.register(TaotiePlayerFoodListProvider.class);
         event.register(PlayerFoodSpeedBonusProvider.class);
         event.register(PlayerFoodDamageBonusProvider.class);
         event.register(PlayerFoodAttackSpeedBonusProvider.class);
-        event.register(PlayerFoodResistanceBonusProvider.class);
-        event.register(PlayerFoodHealingBonusProvider.class);
-        event.register(PlayerFoodShootSpeedBonusProvider.class);
-        event.register(PlayerFoodArrowDamageBonusProvider.class);
+
+
 
     }
 

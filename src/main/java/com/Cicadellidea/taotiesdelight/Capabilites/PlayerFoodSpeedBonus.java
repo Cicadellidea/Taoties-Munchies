@@ -1,52 +1,38 @@
 package com.Cicadellidea.taotiesdelight.Capabilites;
 
-import com.Cicadellidea.taotiesdelight.config.TaotiesDelightConfig;
+import com.Cicadellidea.taotiesdelight.config.FoodSpeedBonusConfig;
 import net.minecraft.nbt.CompoundTag;
 
 public class PlayerFoodSpeedBonus {
 
     private double foodSpeedBonus;
-    private double limitBreakingStep;
+
     private double maxbonus;
     private double step;
 
     public PlayerFoodSpeedBonus()
     {
         this.foodSpeedBonus = 0;
-        this.maxbonus = TaotiesDelightConfig.maxSpeedBonus;
-        this.step = TaotiesDelightConfig.stepSpeedBonus;
-        this.limitBreakingStep = TaotiesDelightConfig.breakingSpeedBonusLimit;
+        this.maxbonus = FoodSpeedBonusConfig.maxSpeedBonus;
+        this.step = FoodSpeedBonusConfig.stepSpeedBonus;
     }
-
-    public double limintBreaking()
-    {
-        this.maxbonus = this.maxbonus + this.limitBreakingStep;
-        return Math.min(foodSpeedBonus, maxbonus);
-    }
-
     public double increase()
     {
 
         foodSpeedBonus = foodSpeedBonus + step;
-        return Math.min(foodSpeedBonus, maxbonus);
+        if(foodSpeedBonus > maxbonus)
+        {
+            foodSpeedBonus = maxbonus;
+        }
+        return foodSpeedBonus;
     }
-    public void reset()
+    public double getFoodSpeedBonus()
     {
-        this.foodSpeedBonus = 0;
-        this.maxbonus = TaotiesDelightConfig.maxSpeedBonus;
-        this.step = TaotiesDelightConfig.stepSpeedBonus;
-        this.limitBreakingStep = TaotiesDelightConfig.breakingSpeedBonusLimit;
-    }
-
-    public double getActual()
-    {
-        return Math.min(foodSpeedBonus, maxbonus);
+        return this.foodSpeedBonus;
     }
 
-    public void clone(PlayerFoodSpeedBonus bonus)
-    {
-        this.foodSpeedBonus = bonus.foodSpeedBonus;
-        this.maxbonus = bonus.maxbonus;
+    public void setFoodSpeedBonus(double foodSpeedBonus) {
+        this.foodSpeedBonus = foodSpeedBonus;
     }
 
     public void saveNBT(CompoundTag tag)

@@ -1,61 +1,45 @@
 package com.Cicadellidea.taotiesdelight.Capabilites;
 
-import com.Cicadellidea.taotiesdelight.config.TaotiesDelightConfig;
 import net.minecraft.nbt.CompoundTag;
 
 public class PlayerFoodDamageBonus {
 
-    private double foodDamageBonus;
-    private double limitBreakingStep;
-    private double maxbonus;
-    private double step;
+    private float foodDamageBonus;
+    private float maxbonus;
+    private float step;
 
     public PlayerFoodDamageBonus()
     {
         this.foodDamageBonus = 0;
-        this.maxbonus = TaotiesDelightConfig.maxDamageBonus;
-        this.step = TaotiesDelightConfig.stepDamageBonus;
-        this.limitBreakingStep = TaotiesDelightConfig.breakingDamageBonusLimit;
+        this.maxbonus = 1;
+        this.step =0.1f;
     }
-
-    public double limintBreaking()
-    {
-        this.maxbonus = this.maxbonus + this.limitBreakingStep;
-        return Math.min(foodDamageBonus, maxbonus);
-    }
-
-    public double increase()
+    public float increase()
     {
 
         foodDamageBonus = foodDamageBonus + step;
-        return Math.min(foodDamageBonus, maxbonus);
+        if(foodDamageBonus > maxbonus)
+        {
+            foodDamageBonus = maxbonus;
+        }
+
+        return foodDamageBonus;
     }
-    public void reset()
-    {
-        this.foodDamageBonus = 0;
-        this.maxbonus = TaotiesDelightConfig.maxDamageBonus;
-        this.step = TaotiesDelightConfig.stepDamageBonus;
-        this.limitBreakingStep = TaotiesDelightConfig.breakingDamageBonusLimit;
+    public float getFoodDamageBonus() {
+        return foodDamageBonus;
     }
 
-    public double getActual()
-    {
-        return Math.min(foodDamageBonus, maxbonus);
-    }
-
-    public void clone(PlayerFoodDamageBonus bonus)
-    {
-        this.foodDamageBonus = bonus.foodDamageBonus;
-        this.maxbonus = bonus.maxbonus;
+    public void setFoodDamageBonus(float foodDamageBonus) {
+        this.foodDamageBonus = foodDamageBonus;
     }
 
     public void saveNBT(CompoundTag tag)
     {
-        tag.putDouble("FoodDamageBonus", foodDamageBonus);
+        tag.putFloat("FoodSpeedBoost", foodDamageBonus);
     }
 
     public void readNBT(CompoundTag tag)
     {
-        foodDamageBonus = tag.getDouble("FoodDamageBonus");
+        foodDamageBonus = tag.getFloat("FoodSpeedBoost");
     }
 }

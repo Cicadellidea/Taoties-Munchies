@@ -38,7 +38,9 @@ public class TaotieCommand {
     @SubscribeEvent
     public static void registerClearer(RegisterCommandsEvent event)
     {
-        event.getDispatcher().register(Commands.literal("TaotieAbilityReset").executes(commandContext ->
+        event.getDispatcher().register(Commands.literal("TaotieAbilityReset").requires(p->{
+            return p.hasPermission(2);
+        }).executes(commandContext ->
         {
             Player player = commandContext.getSource().getPlayer();
             player.getCapability(PlayerFoodSpeedBonusProvider.PLAYER_FOOD_SPEED_BONUS_CAPABILITY).ifPresent(PlayerFoodSpeedBonus::reset);

@@ -16,72 +16,72 @@ import java.util.stream.Collectors;
 @Mod.EventBusSubscriber(modid = TaotiesMunchies.MODID,bus = Mod.EventBusSubscriber.Bus.MOD)
 public class TaotiesDelightConfig {
     private static ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
-    private static ForgeConfigSpec.BooleanValue WHITE_LIST = BUILDER.define("WhiteList",true);
-    private static ForgeConfigSpec.DoubleValue SPEED_BONUS_STEP = BUILDER.defineInRange("SpeedBonusStep",0.1,0,1000);
+    private static ForgeConfigSpec.BooleanValue WHITE_LIST = BUILDER.define("WhiteList",false);
+    private static ForgeConfigSpec.DoubleValue SPEED_BONUS_STEP = BUILDER.defineInRange("SpeedBonusStep",0.025,0,1000);
     private static ForgeConfigSpec.DoubleValue SPEED_BONUS_MAX= BUILDER.defineInRange("SpeedBonusMaximum",1d,0,1000);
     private static ForgeConfigSpec.DoubleValue SPEED_BONUS_LIMIT_BREAKING_STEP = BUILDER.defineInRange("SpeedBonusLimitBreakingStep",0.1,0,1000);
 
     public static ForgeConfigSpec.ConfigValue<List<? extends String>> FOOD_SPEED_BONUS = BUILDER.defineListAllowEmpty("SpeedBonusFood", List.of("minecraft:carrot","minecraft:apple","minecraft:cookie","minecraft:bread"), TaotiesDelightConfig::allow);
     public static ForgeConfigSpec.ConfigValue<List<? extends String>> FOOD_SPEED_BONUS_LIMIT_BREAKER = BUILDER.defineListAllowEmpty("SpeedBonusLimitBreakingFood", List.of("minecraft:carrot"), TaotiesDelightConfig::allow);
 
-    private static ForgeConfigSpec.DoubleValue ATTACK_SPEED_BONUS_STEP = BUILDER.defineInRange("AttackSpeedBonusStep",0.1,0,1000);
+    private static ForgeConfigSpec.DoubleValue ATTACK_SPEED_BONUS_STEP = BUILDER.defineInRange("AttackSpeedBonusStep",0.025,0,1000);
     private static ForgeConfigSpec.DoubleValue ATTACK_SPEED_BONUS_MAX= BUILDER.defineInRange("AttackSpeedBonusMaximum",1d,0,1000);
     private static ForgeConfigSpec.DoubleValue ATTACK_SPEED_BONUS_LIMIT_BREAKING_STEP = BUILDER.defineInRange("AttackSpeedBonusLimitBreakingStep",0.1,0,1000);
 
     public static ForgeConfigSpec.ConfigValue<List<? extends String>> FOOD_ATTACK_SPEED_BONUS = BUILDER.defineListAllowEmpty("AttackSpeedBonusFood", List.of("minecraft:carrot","minecraft:apple","minecraft:cookie"),TaotiesDelightConfig::allow);
-    public static ForgeConfigSpec.ConfigValue<List<? extends String>> FOOD_ATTACK_SPEED_BONUS_LIMIT_BREAKER = BUILDER.defineListAllowEmpty("AttackSpeedBonusLimitBreakingFood", List.of("minecraft:carrot","minecraft:apple"),TaotiesDelightConfig::allow);
+    public static ForgeConfigSpec.ConfigValue<List<? extends String>> FOOD_ATTACK_SPEED_BONUS_LIMIT_BREAKER = BUILDER.defineListAllowEmpty("AttackSpeedBonusLimitBreakingFood", List.of("minecraft:carrot"),TaotiesDelightConfig::allow);
 
 
     public static double stepAttackSpeedBonus, maxAttackSpeedBonus,breakingAttackSpeedBonusLimit;
 
     public static Set<Item> foodAttackSpeedBonus, foodAttackSpeedBonusLimitBreaker;
 
-    private static ForgeConfigSpec.DoubleValue DAMAGE_BONUS_STEP = BUILDER.defineInRange("DamageBonusStep",0.1,0,1000);
+    private static ForgeConfigSpec.DoubleValue DAMAGE_BONUS_STEP = BUILDER.defineInRange("DamageBonusStep",0.025,0,1000);
     private static ForgeConfigSpec.DoubleValue DAMAGE_BONUS_MAX= BUILDER.defineInRange("DamageBonusMaximum",1d,0,1000);
     private static ForgeConfigSpec.DoubleValue DAMAGE_BONUS_LIMIT_BREAKING_STEP = BUILDER.defineInRange("DamageBonusLimitBreakingStep",0.1,0,1000);
 
     public static ForgeConfigSpec.ConfigValue<List<? extends String>> FOOD_DAMAGE_BONUS = BUILDER.defineListAllowEmpty("DamageBonusFood", List.of("minecraft:carrot","minecraft:apple","minecraft:cookie"),TaotiesDelightConfig::allow);
-    public static ForgeConfigSpec.ConfigValue<List<? extends String>> FOOD_DAMAGE_BONUS_LIMIT_BREAKER = BUILDER.defineListAllowEmpty("DamageBonusLimitBreakingFood", List.of("minecraft:carrot","minecraft:apple"),TaotiesDelightConfig::allow);
+    public static ForgeConfigSpec.ConfigValue<List<? extends String>> FOOD_DAMAGE_BONUS_LIMIT_BREAKER = BUILDER.defineListAllowEmpty("DamageBonusLimitBreakingFood", List.of("minecraft:carrot"),TaotiesDelightConfig::allow);
 
-    private static ForgeConfigSpec.DoubleValue RESISTANCE_BONUS_STEP = BUILDER.defineInRange("ResistanceBonusStep",0.1,0,1000);
+    private static ForgeConfigSpec.DoubleValue RESISTANCE_BONUS_STEP = BUILDER.defineInRange("ResistanceBonusStep",0.025,0,1000);
     private static ForgeConfigSpec.DoubleValue RESISTANCE_BONUS_MAX= BUILDER.defineInRange("ResistanceBonusMaximum",1d,0,1000);
     private static ForgeConfigSpec.DoubleValue RESISTANCE_BONUS_LIMIT_BREAKING_STEP = BUILDER.defineInRange("ResistanceBonusLimitBreakingStep",0.1,0,1000);
 
     public static ForgeConfigSpec.ConfigValue<List<? extends String>> FOOD_RESISTANCE_BONUS = BUILDER.defineListAllowEmpty("ResistanceBonusFood", List.of("minecraft:carrot","minecraft:apple","minecraft:cookie"),TaotiesDelightConfig::allow);
-    public static ForgeConfigSpec.ConfigValue<List<? extends String>> FOOD_RESISTANCE_BONUS_LIMIT_BREAKER = BUILDER.defineListAllowEmpty("ResistanceBonusLimitBreakingFood", List.of("minecraft:carrot","minecraft:apple"),TaotiesDelightConfig::allow);
+    public static ForgeConfigSpec.ConfigValue<List<? extends String>> FOOD_RESISTANCE_BONUS_LIMIT_BREAKER = BUILDER.defineListAllowEmpty("ResistanceBonusLimitBreakingFood", List.of("minecraft:carrot"),TaotiesDelightConfig::allow);
 
     public static double stepDamageBonus, maxDamageBonus,breakingDamageBonusLimit;
 
     public static Set<Item> foodDamageBonus, foodDamageBonusLimitBreaker;
 
-    private static ForgeConfigSpec.DoubleValue HEALING_BONUS_STEP = BUILDER.defineInRange("HealingBonusStep",0.1,0,1000);
+    private static ForgeConfigSpec.DoubleValue HEALING_BONUS_STEP = BUILDER.defineInRange("HealingBonusStep",0.025,0,1000);
     private static ForgeConfigSpec.DoubleValue HEALING_BONUS_MAX= BUILDER.defineInRange("HealingBonusMaximum",1d,0,1000);
     private static ForgeConfigSpec.DoubleValue HEALING_BONUS_LIMIT_BREAKING_STEP = BUILDER.defineInRange("HealingBonusLimitBreakingStep",0.1,0,1000);
 
     public static ForgeConfigSpec.ConfigValue<List<? extends String>> FOOD_HEALING_BONUS = BUILDER.defineListAllowEmpty("HealingBonusFood", List.of("minecraft:carrot","minecraft:apple","minecraft:cookie"),TaotiesDelightConfig::allow);
-    public static ForgeConfigSpec.ConfigValue<List<? extends String>> FOOD_HEALING_BONUS_LIMIT_BREAKER = BUILDER.defineListAllowEmpty("HealingBonusLimitBreakingFood", List.of("minecraft:carrot","minecraft:apple"),TaotiesDelightConfig::allow);
+    public static ForgeConfigSpec.ConfigValue<List<? extends String>> FOOD_HEALING_BONUS_LIMIT_BREAKER = BUILDER.defineListAllowEmpty("HealingBonusLimitBreakingFood", List.of("minecraft:carrot"),TaotiesDelightConfig::allow);
 
     public static double stepHealingBonus, maxHealingBonus,breakingHealingBonusLimit;
 
     public static Set<Item> foodHealingBonus, foodHealingBonusLimitBreaker;
 
-    private static ForgeConfigSpec.DoubleValue SHOOT_SPEED_BONUS_STEP = BUILDER.defineInRange("ShootSpeedBonusStep",0.1,0,1000);
+    private static ForgeConfigSpec.DoubleValue SHOOT_SPEED_BONUS_STEP = BUILDER.defineInRange("ShootSpeedBonusStep",0.025,0,1000);
     private static ForgeConfigSpec.DoubleValue SHOOT_SPEED_BONUS_MAX= BUILDER.defineInRange("ShootSpeedBonusMaximum",1d,0,1000);
     private static ForgeConfigSpec.DoubleValue SHOOT_SPEED_BONUS_LIMIT_BREAKING_STEP = BUILDER.defineInRange("ShootSpeedBonusLimitBreakingStep",0.1,0,1000);
 
     public static ForgeConfigSpec.ConfigValue<List<? extends String>> FOOD_SHOOT_SPEED_BONUS = BUILDER.defineListAllowEmpty("ShootSpeedBonusFood", List.of("minecraft:carrot","minecraft:apple","minecraft:cookie"),TaotiesDelightConfig::allow);
-    public static ForgeConfigSpec.ConfigValue<List<? extends String>> FOOD_SHOOT_SPEED_BONUS_LIMIT_BREAKER = BUILDER.defineListAllowEmpty("ShootSpeedBonusLimitBreakingFood", List.of("minecraft:carrot","minecraft:apple"),TaotiesDelightConfig::allow);
+    public static ForgeConfigSpec.ConfigValue<List<? extends String>> FOOD_SHOOT_SPEED_BONUS_LIMIT_BREAKER = BUILDER.defineListAllowEmpty("ShootSpeedBonusLimitBreakingFood", List.of("minecraft:carrot"),TaotiesDelightConfig::allow);
 
     public static double stepShootSpeedBonus, maxShootSpeedBonus,breakingShootSpeedBonusLimit;
 
     public static Set<Item> foodShootSpeedBonus, foodShootSpeedBonusLimitBreaker;
 
-    private static ForgeConfigSpec.DoubleValue ARROW_DAMAGE_BONUS_STEP = BUILDER.defineInRange("ArrowDamageBonusStep",0.1,0,1000);
+    private static ForgeConfigSpec.DoubleValue ARROW_DAMAGE_BONUS_STEP = BUILDER.defineInRange("ArrowDamageBonusStep",0.025,0,1000);
     private static ForgeConfigSpec.DoubleValue ARROW_DAMAGE_BONUS_MAX= BUILDER.defineInRange("ArrowDamageBonusMaximum",1d,0,1000);
     private static ForgeConfigSpec.DoubleValue ARROW_DAMAGE_BONUS_LIMIT_BREAKING_STEP = BUILDER.defineInRange("ArrowDamageBonusLimitBreakingStep",0.1,0,1000);
 
     public static ForgeConfigSpec.ConfigValue<List<? extends String>> FOOD_ARROW_DAMAGE_BONUS = BUILDER.defineListAllowEmpty("ArrowDamageBonusFood", List.of("minecraft:carrot","minecraft:apple","minecraft:cookie"),TaotiesDelightConfig::allow);
-    public static ForgeConfigSpec.ConfigValue<List<? extends String>> FOOD_ARROW_DAMAGE_BONUS_LIMIT_BREAKER = BUILDER.defineListAllowEmpty("ArrowDamageBonusLimitBreakingFood", List.of("minecraft:carrot","minecraft:apple"),TaotiesDelightConfig::allow);
+    public static ForgeConfigSpec.ConfigValue<List<? extends String>> FOOD_ARROW_DAMAGE_BONUS_LIMIT_BREAKER = BUILDER.defineListAllowEmpty("ArrowDamageBonusLimitBreakingFood", List.of("minecraft:carrot"),TaotiesDelightConfig::allow);
 
     public static double stepArrowDamageBonus, maxArrowDamageBonus,breakingArrowDamageBonusLimit;
 

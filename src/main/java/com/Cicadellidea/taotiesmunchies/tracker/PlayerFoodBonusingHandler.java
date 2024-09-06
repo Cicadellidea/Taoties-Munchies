@@ -35,7 +35,7 @@ public class PlayerFoodBonusingHandler
                                     PlayerFoodAttributeBonusHandler.updateTaotieSpeedModifier(player, bonus.limintBreaking());
                                 });
                             }
-                            if(TaotiesDelightConfig.foodSpeedBonus.contains(item))
+                            if(!TaotiesDelightConfig.whiteList || TaotiesDelightConfig.foodSpeedBonus.contains(item))
                             {
                                 player.getCapability(PlayerFoodSpeedBonusProvider.PLAYER_FOOD_SPEED_BONUS_CAPABILITY).ifPresent(bonus ->
                                 {
@@ -51,7 +51,7 @@ public class PlayerFoodBonusingHandler
                                     PlayerFoodAttributeBonusHandler.updateTaotieDamageBonusModifier(player, bonus.limintBreaking());
                                 });
                             }
-                            if(TaotiesDelightConfig.foodDamageBonus.contains(item))
+                            if(!TaotiesDelightConfig.whiteList || TaotiesDelightConfig.foodDamageBonus.contains(item))
                             {
                                 player.getCapability(PlayerFoodDamageBonusProvider.PLAYER_FOOD_DAMAGE_BONUS_CAPABILITY).ifPresent(bonus ->
                                 {
@@ -67,7 +67,7 @@ public class PlayerFoodBonusingHandler
                                     PlayerFoodAttributeBonusHandler.updateTaotieAttackSpeedBonusModifier(player, bonus.limintBreaking());
                                 });
                             }
-                            if(TaotiesDelightConfig.foodAttackSpeedBonus.contains(item))
+                            if(!TaotiesDelightConfig.whiteList || TaotiesDelightConfig.foodAttackSpeedBonus.contains(item))
                             {
                                 player.getCapability(PlayerFoodAttackSpeedBonusProvider.PLAYER_FOOD_ATTACK_SPEED_BONUS_CAPABILITY).ifPresent(bonus ->
                                 {
@@ -83,7 +83,7 @@ public class PlayerFoodBonusingHandler
                                     bonus.limintBreaking();
                                 });
                             }
-                            if(TaotiesDelightConfig.foodResistanceBonus.contains(item))
+                            if(!TaotiesDelightConfig.whiteList || TaotiesDelightConfig.foodResistanceBonus.contains(item))
                             {
                                 player.getCapability(PlayerFoodResistanceBonusProvider.PLAYER_FOOD_RESISTANCE_BONUS_CAPABILITY).ifPresent(bonus ->
                                 {
@@ -99,7 +99,7 @@ public class PlayerFoodBonusingHandler
                                     bonus.limintBreaking();
                                 });
                             }
-                            if(TaotiesDelightConfig.foodHealingBonus.contains(item))
+                            if(!TaotiesDelightConfig.whiteList || TaotiesDelightConfig.foodHealingBonus.contains(item))
                             {
                                 player.getCapability(PlayerFoodHealingBonusProvider.PLAYER_FOOD_HEALING_BONUS_CAPABILITY).ifPresent(bonus ->
                                 {
@@ -115,7 +115,7 @@ public class PlayerFoodBonusingHandler
                                     bonus.limintBreaking();
                                 });
                             }
-                            if(TaotiesDelightConfig.foodShootSpeedBonus.contains(item))
+                            if(!TaotiesDelightConfig.whiteList || TaotiesDelightConfig.foodShootSpeedBonus.contains(item))
                             {
                                 player.getCapability(PlayerFoodShootSpeedBonusProvider.PLAYER_FOOD_SHOOT_SPEED_BONUS_CAPABILITY).ifPresent(bonus ->
                                 {
@@ -131,7 +131,7 @@ public class PlayerFoodBonusingHandler
                                     bonus.limintBreaking();
                                 });
                             }
-                            if(TaotiesDelightConfig.foodArrowDamageBonus.contains(item))
+                            if(!TaotiesDelightConfig.whiteList || TaotiesDelightConfig.foodArrowDamageBonus.contains(item))
                             {
                                 player.getCapability(PlayerFoodArrowDamageBonusProvider.PLAYER_FOOD_ARROW_DAMAGE_BONUS_CAPABILITY).ifPresent(bonus ->
                                 {

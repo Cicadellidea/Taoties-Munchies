@@ -1,6 +1,6 @@
 A mod designed to encourage trying legendary foods.
 
-Add a food to the config file, so that you can get stronger after eating.(Once for each food)
+Add a food to the config file, or turn off the whitelist in the config file, so that you can get stronger after eating.(Once for each food)
 
 You may gain extra speed, damage, attack speed, damage resistance, healing boost, arrow shoot speed, and arrow damage.
 

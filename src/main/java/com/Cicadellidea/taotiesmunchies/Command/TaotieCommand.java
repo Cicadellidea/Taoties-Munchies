@@ -23,7 +23,7 @@ public class TaotieCommand {
         {
             Player player = commandContext.getSource().getPlayer();
             player.getCapability(PlayerFoodDamageBonusProvider.PLAYER_FOOD_DAMAGE_BONUS_CAPABILITY).ifPresent(bonus -> {commandContext.getSource().sendSuccess(()->Component.literal("Damage:"+bonus.getActual()),false);});
-            player.getCapability(PlayerFoodAttackSpeedBonusProvider.PLAYER_FOOD_ATTACK_SPEED_BONUS_CAPABILITY).ifPresent(bonus -> {commandContext.getSource().sendSuccess(()->Component.literal("Attack speed:"+bonus.getActual()*100 + "%"),false);});
+            player.getCapability(PlayerFoodAttackSpeedBonusProvider.PLAYER_FOOD_ATTACK_SPEED_BONUS_CAPABILITY).ifPresent(bonus -> {commandContext.getSource().sendSuccess(()->Component.literal("Attack speed:"+bonus.getActual()),false);});
             player.getCapability(PlayerFoodSpeedBonusProvider.PLAYER_FOOD_SPEED_BONUS_CAPABILITY).ifPresent(bonus -> {commandContext.getSource().sendSuccess(()->Component.literal("Speed:"+bonus.getActual()),false);});
             player.getCapability(PlayerFoodResistanceBonusProvider.PLAYER_FOOD_RESISTANCE_BONUS_CAPABILITY).ifPresent(bonus -> {commandContext.getSource().sendSuccess(()->Component.literal("Resistance:"+bonus.getActual()),false);});
             player.getCapability(PlayerFoodHealingBonusProvider.PLAYER_FOOD_HEALING_BONUS_CAPABILITY).ifPresent(bonus -> {commandContext.getSource().sendSuccess(()->Component.literal("Healing:"+bonus.getActual()),false);});

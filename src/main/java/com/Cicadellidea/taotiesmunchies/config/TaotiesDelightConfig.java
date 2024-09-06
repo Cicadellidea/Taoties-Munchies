@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
 @Mod.EventBusSubscriber(modid = TaotiesMunchies.MODID,bus = Mod.EventBusSubscriber.Bus.MOD)
 public class TaotiesDelightConfig {
     private static ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
+    private static ForgeConfigSpec.BooleanValue WHITE_LIST = BUILDER.define("WhiteList",true);
     private static ForgeConfigSpec.DoubleValue SPEED_BONUS_STEP = BUILDER.defineInRange("SpeedBonusStep",0.1,0,1000);
     private static ForgeConfigSpec.DoubleValue SPEED_BONUS_MAX= BUILDER.defineInRange("SpeedBonusMaximum",1d,0,1000);
     private static ForgeConfigSpec.DoubleValue SPEED_BONUS_LIMIT_BREAKING_STEP = BUILDER.defineInRange("SpeedBonusLimitBreakingStep",0.1,0,1000);
@@ -102,9 +103,12 @@ public class TaotiesDelightConfig {
 
     public static Set<Item> foodResistanceBonus, foodResistanceBonusLimitBreaker;
 
+    public static boolean whiteList;
+
 
     private static void getConfig()
     {
+        whiteList = WHITE_LIST.get();
         stepSpeedBonus = SPEED_BONUS_STEP.get();
         maxSpeedBonus = SPEED_BONUS_MAX.get();
         breakingSpeedBonusLimit = SPEED_BONUS_LIMIT_BREAKING_STEP.get();

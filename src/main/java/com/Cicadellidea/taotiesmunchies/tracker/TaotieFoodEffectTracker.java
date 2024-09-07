@@ -43,7 +43,7 @@ public class TaotieFoodEffectTracker {
                         {
                             player.addEffect(new MobEffectInstance(MobEffects.REGENERATION,2400,0));
                         }
-                        if(TaotiesDelightConfig.foodSpeedBonus.contains(food))
+                        if(TaotiesDelightConfig.foodShootSpeedBonus.contains(food))
                         {
                             player.addEffect(new MobEffectInstance(TaotiesMunchies.SHOOT_SPEED_UP.get(),2400,0));
                         }

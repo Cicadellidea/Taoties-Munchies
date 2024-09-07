@@ -145,30 +145,4 @@ public class TaotiesMunchies
 
 
 
-    // You can use EventBusSubscriber to automatically register all static methods in the class annotated with @SubscribeEvent
-    @SubscribeEvent
-    public void onProjectHitEvent(ProjectileImpactEvent event)
-    {
-
-
-        if(event.getEntity() instanceof Arrow arrow)
-        {
-            if(arrow.getOwner() instanceof Player player)
-            {
-                if (!player.level().isClientSide)
-                {
-                    player.getCapability(TaotiePlayerFoodListProvider.PLAYER_FOODL_LIST_CAPABILITY).ifPresent(taotiePlayerFoodlList -> {
-                        LOGGER.info(String.valueOf(taotiePlayerFoodlList.getFoodSet()));
-                    });
-
-
-
-
-
-
-                }
-            }
-        }
-
-    }
 }

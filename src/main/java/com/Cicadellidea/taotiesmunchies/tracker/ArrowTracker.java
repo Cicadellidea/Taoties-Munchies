@@ -3,6 +3,7 @@ package com.Cicadellidea.taotiesmunchies.tracker;
 import com.Cicadellidea.taotiesmunchies.Capabilites.*;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.Arrow;
 import net.minecraftforge.event.entity.EntityEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -15,7 +16,7 @@ public class ArrowTracker {
         // Do something when the server starts
         Entity entity = event.getEntity();
 
-            if (entity instanceof Arrow arrow)
+            if (entity instanceof AbstractArrow arrow)
             {
                 if(!entity.level().isClientSide ) {
                     Entity owner = arrow.getOwner();

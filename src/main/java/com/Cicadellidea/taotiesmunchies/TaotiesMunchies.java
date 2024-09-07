@@ -2,21 +2,23 @@ package com.Cicadellidea.taotiesmunchies;
 
 import com.Cicadellidea.taotiesmunchies.Capabilites.*;
 import com.Cicadellidea.taotiesmunchies.config.TaotiesDelightConfig;
+import com.Cicadellidea.taotiesmunchies.effect.DMGUp;
+import com.Cicadellidea.taotiesmunchies.effect.ShootSpeedUp;
 import com.Cicadellidea.taotiesmunchies.tracker.ArrowTracker;
 import com.Cicadellidea.taotiesmunchies.tracker.PlayerHealthyTracker;
+import com.Cicadellidea.taotiesmunchies.tracker.TaotieFoodEffectTracker;
 import com.mojang.logging.LogUtils;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
-import net.minecraft.world.entity.projectile.Arrow;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 
-import net.minecraftforge.event.entity.ProjectileImpactEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -25,6 +27,7 @@ import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
 import org.slf4j.Logger;
 
 // The value here should match an entry in the META-INF/mods.toml file
@@ -41,7 +44,10 @@ public class TaotiesMunchies
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MODID);
     // Create a Deferred Register to hold CreativeModeTabs which will all be registered under the "examplemod" namespace
 
+    public static final DeferredRegister<MobEffect> EFFECT = DeferredRegister.create(ForgeRegistries.MOB_EFFECTS, MODID);
 
+    public static final RegistryObject<ShootSpeedUp> SHOOT_SPEED_UP = EFFECT.register("shootspeed_up", ShootSpeedUp::new);
+    public static final RegistryObject<DMGUp> DMG_UP = EFFECT.register("dmg_up", DMGUp::new);
     public void attachCapability(AttachCapabilitiesEvent<Entity> event)
     {
         if (event.getObject() instanceof AbstractArrow arrow)
@@ -107,12 +113,13 @@ public class TaotiesMunchies
         // Register the Deferred Register to the mod event bus so items get registered
         ITEMS.register(modEventBus);
         // Register the Deferred Register to the mod event bus so tabs get registered
-
+        EFFECT.register(modEventBus);
 
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.register(new ArrowTracker());
-        MinecraftForge.EVENT_BUS.register(new PlayerHealthyTracker());
+        MinecraftForge.EVENT_BUS.register(new TaotieFoodEffectTracker());
+
 
 
 

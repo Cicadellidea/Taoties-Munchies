@@ -36,8 +36,9 @@ public class ArrowTracker {
                                     arrow.setBaseDamage(arrow.getBaseDamage()*mul);
                                 });
 
-                                acc.setFoodAccelerated(true);
                             }
+                            acc.setFoodAccelerated(true);
+
                         }
                     });
                 }

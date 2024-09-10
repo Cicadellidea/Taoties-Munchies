@@ -23,7 +23,6 @@ public class ArrowTracker {
             if (entity instanceof AbstractArrow arrow)
             {
                 if(!entity.level().isClientSide ) {
-                    Entity owner = arrow.getOwner();
                     arrow.getCapability(ArrowFoodAcceleratedProvider.ARROW_FOOD_ACCELERATED_CAPABILITY).ifPresent(acc ->
                     {
                         if (!acc.getFoodAccelerated()) {

@@ -65,7 +65,6 @@ public class ArrowTracker {
                     }
 
                     event.setAmount((float) (event.getAmount()*mul[0]));
-                    TaotiesMunchies.LOGGER.info(String.valueOf(event.getAmount()));
 
 
                 }

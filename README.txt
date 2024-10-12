@@ -24,7 +24,7 @@ Attack Damage: Strength 1
 Attack Speed: Haste 2
 Speed: Speed 2
 Resistance: Resistance 1
-Healing: Regeneration 1
+Healing: Regeneration 2
 Shootspeed: Shootspeed Up 1
 Arrow Damge: Arrow DMG UP 1
 
@@ -67,7 +67,7 @@ v0.2.1开始加入了2种状态效果，弹速上升和箭矢伤害上升，并�
 
 护甲：抗性提升1
 
-回复：生命恢复1
+回复：生命恢复2
 
 弹速：弹速上升1(+30%箭矢速度)
 

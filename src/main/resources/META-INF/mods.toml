@@ -15,11 +15,11 @@ license="${mod_license}"
 # A list of mods - how many allowed here is determined by the individual mod loader
 [[mods]] #mandatory
 # The modid of the mod
-modId="taotiesdelight" #mandatory
+modId="taotiesmunchies" #mandatory
 # The version number of the mod
-version="0.0.1" #mandatory
+version="0.2.5" #mandatory
 # A display name for the mod
-displayName="饕餮乐事" #mandatory
+displayName="Taotie's Munchies" #mandatory
 # A URL to query for updates for this mod. See the JSON update specification https://docs.minecraftforge.net/en/latest/misc/updatechecker/
 #updateJSONURL="https://change.me.example.invalid/updates.json" #optional
 # A URL for the "homepage" for this mod, displayed in the mod UI
